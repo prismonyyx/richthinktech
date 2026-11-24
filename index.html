@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rich Think Technologies | Software, Web & Digital Solutions</title>
+  <meta name="description" content="Rich Think Technologies builds websites, mobile apps, custom software and digital marketing solutions that help businesses grow." />
+  <meta name="theme-color" content="#0a0f1f" />
+  <meta property="og:title" content="Rich Think Technologies" />
+  <meta property="og:description" content="Smart technology solutions for growing businesses." />
+  <meta property="og:type" content="website" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg: #0a0f1f;
+      --bg-2: #0f1630;
+      --card: rgba(255, 255, 255, 0.04);
+      --border: rgba(255, 255, 255, 0.09);
+      --text: #e8ecf7;
+      --muted: #9aa5c4;
+      --accent: #7c5cff;
+      --accent-2: #22d3ee;
+      --gold: #f5b942;
+      --radius: 18px;
+      --max: 1180px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: "Plus Jakarta Sans", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    .container { width: min(var(--max), 92%); margin: 0 auto; }
+    .grad-text {
+      background: linear-gradient(90deg, var(--accent-2), var(--accent) 50%, var(--gold));
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+
+    /* ---------- NAV ---------- */
+    .nav {
+      position: fixed; inset: 0 0 auto 0; z-index: 50;
+      transition: background .3s, border-color .3s, backdrop-filter .3s;
+      border-bottom: 1px solid transparent;
+    }
+    .nav.scrolled {
+      background: rgba(10, 15, 31, 0.78);
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      border-color: var(--border);
+    }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 76px; }
+    .logo { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 1.15rem; letter-spacing: -0.02em; }
+    .logo-mark {
+      width: 42px; height: 42px; border-radius: 12px; display: grid; place-items: center;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      font-weight: 800; font-size: 1rem; color: #fff; box-shadow: 0 8px 24px rgba(124, 92, 255, .35);
+    }
+    .logo small { display: block; font-weight: 500; font-size: .72rem; color: var(--muted); letter-spacing: .14em; text-transform: uppercase; margin-top: -3px; }
+    .nav-links { display: flex; gap: 34px; list-style: none; font-weight: 500; font-size: .95rem; color: var(--muted); }
+    .nav-links a:hover { color: var(--text); }
+    .btn {
+      display: inline-flex; align-items: center; gap: 10px; padding: 13px 24px; border-radius: 999px;
+      font-weight: 600; font-size: .95rem; cursor: pointer; border: 0; transition: transform .2s, box-shadow .2s, background .2s;
+      font-family: inherit;
+    }
+    .btn-primary { background: linear-gradient(135deg, var(--accent), #5b8cff); color: #fff; box-shadow: 0 10px 30px rgba(124, 92, 255, .35); }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 36px rgba(124, 92, 255, .5); }
+    .btn-ghost { background: var(--card); border: 1px solid var(--border); color: var(--text); }
+    .btn-ghost:hover { background: rgba(255,255,255,.08); }
+    .menu-toggle { display: none; background: none; border: 0; color: var(--text); font-size: 1.6rem; cursor: pointer; }
+
+    /* ---------- HERO ---------- */
+    .hero { position: relative; min-height: 100vh; display: flex; align-items: center; padding: 120px 0 80px; overflow: hidden; }
+    .hero::before, .hero::after {
+      content: ""; position: absolute; border-radius: 50%; filter: blur(90px); opacity: .55; z-index: 0;
+    }
+    .hero::before { width: 520px; height: 520px; background: var(--accent); top: -120px; right: -120px; animation: float 12s ease-in-out infinite; }
+    .hero::after { width: 420px; height: 420px; background: var(--accent-2); bottom: -160px; left: -140px; opacity: .35; animation: float 14s ease-in-out infinite reverse; }
+    @keyframes float { 0%,100% { transform: translate(0,0); } 50% { transform: translate(-40px, 30px); } }
+    .grid-bg {
+      position: absolute; inset: 0; z-index: 0; opacity: .25;
+      background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
+      -webkit-mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
+    }
+    .hero-inner { position: relative; z-index: 1; display: grid; grid-template-columns: 1.1fr .9fr; gap: 60px; align-items: center; }
+    .badge {
+      display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 999px;
+      background: var(--card); border: 1px solid var(--border); font-size: .85rem; color: var(--muted); margin-bottom: 26px;
+    }
+    .badge .dot { width: 8px; height: 8px; border-radius: 50%; background: #34d399; box-shadow: 0 0 10px #34d399; }
+    h1 { font-size: clamp(2.5rem, 5.4vw, 4.4rem); line-height: 1.06; letter-spacing: -0.035em; font-weight: 800; margin-bottom: 24px; }
+    .hero p.lead { font-size: 1.15rem; color: var(--muted); max-width: 540px; margin-bottom: 38px; }
+    .hero-cta { display: flex; gap: 14px; flex-wrap: wrap; }
+    .hero-trust { display: flex; gap: 28px; margin-top: 46px; color: var(--muted); font-size: .9rem; flex-wrap: wrap; }
+    .hero-trust span { display: flex; align-items: center; gap: 8px; }
+    .hero-trust svg { color: var(--accent-2); }
+
+    /* hero visual */
+    .hero-visual { position: relative; height: 460px; }
+    .glass {
+      position: absolute; background: rgba(255,255,255,.05); border: 1px solid var(--border);
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-radius: 22px; box-shadow: 0 30px 60px rgba(0,0,0,.35);
+    }
+    .code-card { inset: 30px 0 auto 30px; padding: 22px 24px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .86rem; line-height: 1.85; }
+    .code-card .dots { display: flex; gap: 7px; margin-bottom: 16px; }
+    .code-card .dots i { width: 11px; height: 11px; border-radius: 50%; display: block; }
+    .c-k { color: #c792ea; } .c-f { color: #82aaff; } .c-s { color: #c3e88d; } .c-n { color: var(--gold); } .c-c { color: #5c6a8f; }
+    .stat-card { bottom: 20px; left: 0; padding: 20px 24px; display: flex; gap: 16px; align-items: center; animation: bob 6s ease-in-out infinite; }
+    .stat-card .icon { width: 48px; height: 48px; border-radius: 14px; display: grid; place-items: center; background: linear-gradient(135deg, #34d399, #22d3ee); }
+    .stat-card b { font-size: 1.4rem; display: block; line-height: 1.1; }
+    .stat-card small { color: var(--muted); }
+    .chip-card { top: 0; right: 10px; padding: 14px 18px; font-weight: 600; font-size: .9rem; display: flex; gap: 10px; align-items: center; animation: bob 7s ease-in-out infinite reverse; }
+    @keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+
+    /* ---------- SECTIONS ---------- */
+    section { padding: 110px 0; position: relative; }
+    .section-head { text-align: center; max-width: 680px; margin: 0 auto 64px; }
+    .eyebrow { color: var(--accent-2); font-weight: 700; letter-spacing: .16em; text-transform: uppercase; font-size: .8rem; margin-bottom: 14px; }
+    h2 { font-size: clamp(2rem, 3.6vw, 2.9rem); line-height: 1.15; letter-spacing: -0.03em; font-weight: 800; margin-bottom: 16px; }
+    .section-head p { color: var(--muted); font-size: 1.06rem; }
+
+    /* logos strip */
+    .strip { padding: 34px 0; border-block: 1px solid var(--border); background: var(--bg-2); }
+    .strip-inner { display: flex; justify-content: space-between; align-items: center; gap: 30px; flex-wrap: wrap; color: var(--muted); font-weight: 600; }
+    .strip-inner span.tech { opacity: .75; font-size: 1.05rem; letter-spacing: -0.01em; }
+
+    /* services */
+    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+    .service {
+      padding: 34px 30px; border-radius: var(--radius); background: var(--card); border: 1px solid var(--border);
+      transition: transform .3s, border-color .3s, background .3s; position: relative; overflow: hidden;
+    }
+    .service::after {
+      content: ""; position: absolute; inset: 0; opacity: 0; transition: opacity .3s;
+      background: radial-gradient(400px circle at var(--mx, 50%) var(--my, 0%), rgba(124,92,255,.16), transparent 45%);
+    }
+    .service:hover { transform: translateY(-6px); border-color: rgba(124,92,255,.45); }
+    .service:hover::after { opacity: 1; }
+    .service .ico {
+      width: 56px; height: 56px; border-radius: 16px; display: grid; place-items: center; margin-bottom: 22px;
+      background: linear-gradient(135deg, rgba(124,92,255,.22), rgba(34,211,238,.18)); border: 1px solid var(--border); color: var(--accent-2);
+    }
+    .service h3 { font-size: 1.22rem; margin-bottom: 10px; letter-spacing: -0.01em; }
+    .service p { color: var(--muted); font-size: .96rem; }
+
+    /* about */
+    .about { background: var(--bg-2); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 70px; align-items: center; }
+    .about-visual {
+      position: relative; aspect-ratio: 1 / 1; border-radius: 28px; overflow: hidden; border: 1px solid var(--border);
+      background:
+        radial-gradient(circle at 30% 30%, rgba(124,92,255,.55), transparent 55%),
+        radial-gradient(circle at 75% 70%, rgba(34,211,238,.45), transparent 55%),
+        #0d1430;
+      display: grid; place-items: center;
+    }
+    .about-visual .big-mark { font-size: clamp(5rem, 12vw, 9rem); font-weight: 800; letter-spacing: -0.06em; color: rgba(255,255,255,.92); text-shadow: 0 20px 60px rgba(0,0,0,.4); }
+    .about-visual .ring { position: absolute; border: 1px dashed rgba(255,255,255,.18); border-radius: 50%; animation: spin 40s linear infinite; }
+    .about-visual .ring.r1 { width: 70%; height: 70%; }
+    .about-visual .ring.r2 { width: 90%; height: 90%; animation-direction: reverse; animation-duration: 60s; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .about h2 { text-align: left; }
+    .about p { color: var(--muted); margin-bottom: 18px; }
+    .checks { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 14px 20px; margin-top: 28px; }
+    .checks li { display: flex; gap: 10px; align-items: flex-start; font-weight: 500; }
+    .checks svg { flex-shrink: 0; color: #34d399; margin-top: 3px; }
+
+    /* stats */
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; margin-top: 70px; }
+    .stat { text-align: center; padding: 30px 18px; border-radius: var(--radius); background: var(--card); border: 1px solid var(--border); }
+    .stat b { display: block; font-size: 2.6rem; font-weight: 800; letter-spacing: -0.03em; }
+    .stat span { color: var(--muted); font-size: .92rem; }
+
+    /* process */
+    .process-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; counter-reset: step; }
+    .step { padding: 30px 26px; border-radius: var(--radius); border: 1px solid var(--border); background: var(--card); position: relative; }
+    .step::before {
+      counter-increment: step; content: "0" counter(step);
+      font-size: 3rem; font-weight: 800; letter-spacing: -0.04em; display: block; margin-bottom: 12px;
+      background: linear-gradient(180deg, rgba(255,255,255,.55), rgba(255,255,255,.05)); -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .step h3 { font-size: 1.12rem; margin-bottom: 8px; }
+    .step p { color: var(--muted); font-size: .94rem; }
+
+    /* CTA */
+    .cta-box {
+      border-radius: 30px; padding: 70px 50px; text-align: center; position: relative; overflow: hidden;
+      background: linear-gradient(135deg, #5b3df5 0%, #3b6ef8 50%, #0fb5d3 100%);
+    }
+    .cta-box::before { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 20% 0%, rgba(255,255,255,.25), transparent 50%); }
+    .cta-box > * { position: relative; }
+    .cta-box h2 { color: #fff; }
+    .cta-box p { color: rgba(255,255,255,.85); max-width: 560px; margin: 0 auto 32px; font-size: 1.08rem; }
+    .btn-white { background: #fff; color: #1e1b4b; }
+    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 14px 30px rgba(0,0,0,.25); }
+
+    /* contact */
+    .contact-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 40px; }
+    .contact-info { display: flex; flex-direction: column; gap: 16px; }
+    .info-item { display: flex; gap: 16px; align-items: center; padding: 20px 22px; border-radius: var(--radius); background: var(--card); border: 1px solid var(--border); transition: border-color .3s; }
+    .info-item:hover { border-color: rgba(34,211,238,.4); }
+    .info-item .ico { width: 48px; height: 48px; border-radius: 14px; display: grid; place-items: center; background: rgba(34,211,238,.12); color: var(--accent-2); flex-shrink: 0; }
+    .info-item small { color: var(--muted); display: block; font-size: .82rem; }
+    .info-item b { font-weight: 600; word-break: break-word; }
+    form { padding: 36px; border-radius: 24px; background: var(--card); border: 1px solid var(--border); display: grid; gap: 16px; }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    label { font-size: .85rem; color: var(--muted); display: block; margin-bottom: 6px; }
+    input, textarea, select {
+      width: 100%; padding: 14px 16px; border-radius: 12px; border: 1px solid var(--border); background: rgba(0,0,0,.25);
+      color: var(--text); font-family: inherit; font-size: .95rem; transition: border-color .2s;
+    }
+    select option { background: var(--bg-2); }
+    input:focus, textarea:focus, select:focus { outline: none; border-color: var(--accent); }
+    textarea { resize: vertical; min-height: 120px; }
+
+    /* footer */
+    footer { border-top: 1px solid var(--border); padding: 50px 0 30px; background: var(--bg-2); }
+    .foot { display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; }
+    .socials { display: flex; gap: 12px; }
+    .socials a { width: 42px; height: 42px; border-radius: 12px; display: grid; place-items: center; background: var(--card); border: 1px solid var(--border); transition: background .2s, transform .2s; }
+    .socials a:hover { background: var(--accent); transform: translateY(-3px); }
+    .copy { text-align: center; color: var(--muted); font-size: .86rem; margin-top: 34px; }
+
+    /* floating whatsapp */
+    .wa-float {
+      position: fixed; right: 22px; bottom: 22px; z-index: 60; width: 58px; height: 58px; border-radius: 50%;
+      background: #25d366; display: grid; place-items: center; box-shadow: 0 10px 30px rgba(37,211,102,.45); transition: transform .2s;
+    }
+    .wa-float:hover { transform: scale(1.08); }
+
+    /* reveal */
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity .8s ease, transform .8s ease; }
+    .reveal.in { opacity: 1; transform: none; }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 980px) {
+      .hero-inner, .about-grid, .contact-grid { grid-template-columns: 1fr; }
+      .hero-visual { height: 400px; max-width: 520px; }
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+      .process-grid, .stats { grid-template-columns: repeat(2, 1fr); }
+      .about-visual { max-width: 460px; }
+    }
+    @media (max-width: 760px) {
+      .nav-links, .nav .btn { display: none; }
+      .menu-toggle { display: block; }
+      .nav.open { background: rgba(10,15,31,.97); }
+      .nav.open .nav-links {
+        display: flex; flex-direction: column; gap: 0; position: absolute; top: 76px; left: 0; right: 0;
+        background: rgba(10,15,31,.97); border-bottom: 1px solid var(--border); padding: 10px 4%;
+      }
+      .nav.open .nav-links a { display: block; padding: 14px 0; border-bottom: 1px solid var(--border); }
+      section { padding: 80px 0; }
+      .services-grid, .row, .checks { grid-template-columns: 1fr; }
+      .cta-box { padding: 50px 26px; }
+      form { padding: 26px; }
+      .hero-visual { height: 360px; }
+      .code-card { font-size: .76rem; inset: 56px 0 auto 0; }
+      .chip-card { right: 0; font-size: .8rem; padding: 10px 14px; }
+      .stat-card { bottom: 0; }
+      .strip-inner { justify-content: center; gap: 14px 26px; }
+      .strip-inner > span:first-child { width: 100%; text-align: center; }
+      footer .nav-links { display: none !important; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================= NAV ================= -->
+  <header class="nav" id="nav">
+    <div class="container nav-inner">
+      <a href="#home" class="logo">
+        <span class="logo-mark">RT</span>
+        <span>Rich Think<small>Technologies</small></span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#services">Services</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#process">Process</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <a href="#contact" class="btn btn-primary">Get a Quote</a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Open menu">&#9776;</button>
+    </div>
+  </header>
+
+  <!-- ================= HERO ================= -->
+  <section class="hero" id="home">
+    <div class="grid-bg"></div>
+    <div class="container hero-inner">
+      <div class="reveal">
+        <div class="badge"><span class="dot"></span> Now taking new projects</div>
+        <h1>Smart technology<br />for <span class="grad-text">rich growth.</span></h1>
+        <p class="lead">Rich Think Technologies designs and builds websites, mobile apps and custom software that help businesses look professional, work faster and sell more.</p>
+        <div class="hero-cta">
+          <a href="#contact" class="btn btn-primary">Start Your Project
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </a>
+          <a href="#services" class="btn btn-ghost">Explore Services</a>
+        </div>
+        <div class="hero-trust">
+          <span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg> On-time delivery</span>
+          <span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg> Affordable pricing</span>
+          <span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg> After-sale support</span>
+        </div>
+      </div>
+
+      <div class="hero-visual reveal" aria-hidden="true">
+        <div class="glass chip-card">🚀 <span>Launch-ready in weeks</span></div>
+        <div class="glass code-card">
+          <div class="dots"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i></div>
+          <div><span class="c-c">// your next big idea</span></div>
+          <div><span class="c-k">const</span> project = <span class="c-f">richThink</span>({</div>
+          <div>&nbsp;&nbsp;design: <span class="c-s">"modern"</span>,</div>
+          <div>&nbsp;&nbsp;platform: [<span class="c-s">"web"</span>, <span class="c-s">"mobile"</span>],</div>
+          <div>&nbsp;&nbsp;speed: <span class="c-n">100</span>,</div>
+          <div>&nbsp;&nbsp;support: <span class="c-k">true</span></div>
+          <div>});</div>
+          <div><span class="c-k">await</span> project.<span class="c-f">launch</span>(); <span class="c-c">// ✨</span></div>
+        </div>
+        <div class="glass stat-card">
+          <div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><path d="M3 17l6-6 4 4 8-8M14 7h7v7"/></svg></div>
+          <div><b>+ Growth</b><small>for your business online</small></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= TECH STRIP ================= -->
+  <div class="strip">
+    <div class="container strip-inner">
+      <span>Technologies we work with</span>
+      <span class="tech">React</span>
+      <span class="tech">Laravel</span>
+      <span class="tech">Flutter</span>
+      <span class="tech">WordPress</span>
+      <span class="tech">Node.js</span>
+      <span class="tech">Shopify</span>
+    </div>
+  </div>
+
+  <!-- ================= SERVICES ================= -->
+  <section id="services">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="eyebrow">What we do</div>
+        <h2>Services built around <span class="grad-text">your goals</span></h2>
+        <p>From your first website to complete business software, we handle design, development and support under one roof.</p>
+      </div>
+
+      <div class="services-grid">
+        <div class="service reveal">
+          <div class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+          <h3>Website Development</h3>
+          <p>Fast, responsive and SEO-friendly websites, from business portfolios to full e-commerce stores.</p>
+        </div>
+        <div class="service reveal">
+          <div class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/></svg></div>
+          <h3>Mobile App Development</h3>
+          <p>Android and iOS apps with smooth performance and clean design that your customers will enjoy using.</p>
+        </div>
+        <div class="service reveal">
+          <div class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m16 18 6-6-6-6M8 6l-6 6 6 6"/></svg></div>
+          <h3>Custom Software</h3>
+          <p>POS, inventory, CRM and ERP systems built for the way your business actually works.</p>
+        </div>
+        <div class="service reveal">
+          <div class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><circle cx="11" cy="11" r="2"/></svg></div>
+          <h3>UI/UX &amp; Branding</h3>
+          <p>Logos, brand identity and user interfaces that make your business memorable and easy to use.</p>
+        </div>
+        <div class="service reveal">
+          <div class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="m7 15 4-4 3 3 5-6"/></svg></div>
+          <h3>Digital Marketing &amp; SEO</h3>
+          <p>Social media marketing, Google ranking and ad campaigns that bring real customers to your door.</p>
+        </div>
+        <div class="service reveal">
+          <div class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.5 19a4.5 4.5 0 1 0-1.4-8.78A6 6 0 1 0 6 16.5"/><path d="M12 12v9M9 18l3 3 3-3"/></svg></div>
+          <h3>Hosting &amp; Maintenance</h3>
+          <p>Domains, secure hosting, backups and ongoing updates so your site stays fast and online.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ABOUT ================= -->
+  <section class="about" id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-visual reveal" aria-hidden="true">
+          <div class="ring r1"></div>
+          <div class="ring r2"></div>
+          <div class="big-mark">RT</div>
+        </div>
+        <div class="reveal">
+          <div class="eyebrow">Who we are</div>
+          <h2>A team that <span class="grad-text">thinks rich</span> about your business</h2>
+          <p>Rich Think Technologies is a passionate team of developers, designers and digital marketers. We believe great technology should be simple, affordable and built to deliver results.</p>
+          <p>Whether you are a startup, a local shop or a growing company, we take the time to understand your goals and turn them into digital products that work.</p>
+          <ul class="checks">
+            <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg> Dedicated project manager</li>
+            <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg> Transparent pricing</li>
+            <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg> Modern tech stack</li>
+            <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg> Support after launch</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- EDIT these numbers with the company's real figures -->
+      <div class="stats">
+        <div class="stat reveal"><b class="grad-text" data-count="150">0</b><span>Projects Delivered</span></div>
+        <div class="stat reveal"><b class="grad-text" data-count="100">0</b><span>Happy Clients</span></div>
+        <div class="stat reveal"><b class="grad-text" data-count="5">0</b><span>Years of Experience</span></div>
+        <div class="stat reveal"><b class="grad-text" data-count="24" data-suffix="/7">0</b><span>Support</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PROCESS ================= -->
+  <section id="process">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="eyebrow">How we work</div>
+        <h2>From idea to launch in <span class="grad-text">4 simple steps</span></h2>
+        <p>A clear process keeps you informed at every stage, with no surprises.</p>
+      </div>
+      <div class="process-grid">
+        <div class="step reveal"><h3>Discover</h3><p>We listen to your idea, goals and budget, and plan the right solution.</p></div>
+        <div class="step reveal"><h3>Design</h3><p>We create a modern design and share it with you for feedback before coding.</p></div>
+        <div class="step reveal"><h3>Develop</h3><p>Our developers build, test and polish everything until it works perfectly.</p></div>
+        <div class="step reveal"><h3>Launch &amp; Support</h3><p>We go live, train your team and stay with you for updates and support.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CTA ================= -->
+  <section style="padding-top:0">
+    <div class="container">
+      <div class="cta-box reveal">
+        <h2>Ready to take your business online?</h2>
+        <p>Tell us about your project and get a free consultation and quote within 24 hours.</p>
+        <a href="#" class="btn btn-white" data-wa>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.69.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35M12.05 21.79h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.9-9.88a9.83 9.83 0 0 1 7 2.9 9.82 9.82 0 0 1 2.9 6.99c0 5.45-4.44 9.88-9.89 9.88m8.41-18.3A11.82 11.82 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.31-1.65a11.88 11.88 0 0 0 5.68 1.45h.01c6.55 0 11.89-5.34 11.89-11.89 0-3.18-1.24-6.17-3.48-8.42"/></svg>
+          Chat on WhatsApp
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CONTACT ================= -->
+  <section id="contact" style="padding-top:20px">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="eyebrow">Contact us</div>
+        <h2>Let's build something <span class="grad-text">great together</span></h2>
+        <p>Send us a message and our team will get back to you shortly.</p>
+      </div>
+
+      <div class="contact-grid">
+        <div class="contact-info reveal">
+          <a class="info-item" data-tel>
+            <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+            <div><small>Call us</small><b data-field="phone"></b></div>
+          </a>
+          <a class="info-item" data-mail>
+            <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg></div>
+            <div><small>Email</small><b data-field="email"></b></div>
+          </a>
+          <div class="info-item">
+            <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+            <div><small>Office</small><b data-field="address"></b></div>
+          </div>
+          <a class="info-item" data-fb target="_blank" rel="noopener">
+            <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.07C24 5.41 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.04V9.41c0-3.02 1.8-4.7 4.54-4.7 1.31 0 2.68.24 2.68.24v2.97h-1.5c-1.5 0-1.96.93-1.96 1.89v2.26h3.32l-.53 3.5h-2.8V24C19.62 23.1 24 18.1 24 12.07"/></svg></div>
+            <div><small>Follow us</small><b>Facebook Page</b></div>
+          </a>
+        </div>
+
+        <form class="reveal" id="contactForm">
+          <div class="row">
+            <div><label for="name">Your Name</label><input id="name" required placeholder="Ali Khan" /></div>
+            <div><label for="phone">Phone / WhatsApp</label><input id="phone" placeholder="03xx xxxxxxx" /></div>
+          </div>
+          <div>
+            <label for="service">Service Needed</label>
+            <select id="service">
+              <option>Website Development</option>
+              <option>Mobile App Development</option>
+              <option>Custom Software</option>
+              <option>UI/UX &amp; Branding</option>
+              <option>Digital Marketing &amp; SEO</option>
+              <option>Hosting &amp; Maintenance</option>
+            </select>
+          </div>
+          <div><label for="msg">Project Details</label><textarea id="msg" required placeholder="Tell us a little about your project..."></textarea></div>
+          <button class="btn btn-primary" type="submit" style="justify-content:center">
+            Send via WhatsApp
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer>
+    <div class="container">
+      <div class="foot">
+        <a href="#home" class="logo"><span class="logo-mark">RT</span><span>Rich Think<small>Technologies</small></span></a>
+        <ul class="nav-links" style="display:flex">
+          <li><a href="#services">Services</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="socials">
+          <a data-fb target="_blank" rel="noopener" aria-label="Facebook"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.07C24 5.41 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.04V9.41c0-3.02 1.8-4.7 4.54-4.7 1.31 0 2.68.24 2.68.24v2.97h-1.5c-1.5 0-1.96.93-1.96 1.89v2.26h3.32l-.53 3.5h-2.8V24C19.62 23.1 24 18.1 24 12.07"/></svg></a>
+          <a data-wa target="_blank" rel="noopener" aria-label="WhatsApp"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.69.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35M12.05 21.79h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.9-9.88a9.83 9.83 0 0 1 7 2.9 9.82 9.82 0 0 1 2.9 6.99c0 5.45-4.44 9.88-9.89 9.88m8.41-18.3A11.82 11.82 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.31-1.65a11.88 11.88 0 0 0 5.68 1.45h.01c6.55 0 11.89-5.34 11.89-11.89 0-3.18-1.24-6.17-3.48-8.42"/></svg></a>
+          <a data-mail aria-label="Email"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg></a>
+        </div>
+      </div>
+      <p class="copy">© <span id="year"></span> Rich Think Technologies. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- floating WhatsApp button -->
+  <a class="wa-float" data-wa target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+    <svg width="30" height="30" viewBox="0 0 24 24" fill="#fff"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.69.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35M12.05 21.79h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.9-9.88a9.83 9.83 0 0 1 7 2.9 9.82 9.82 0 0 1 2.9 6.99c0 5.45-4.44 9.88-9.89 9.88m8.41-18.3A11.82 11.82 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.31-1.65a11.88 11.88 0 0 0 5.68 1.45h.01c6.55 0 11.89-5.34 11.89-11.89 0-3.18-1.24-6.17-3.48-8.42"/></svg>
+  </a>
+
+  <script>
+    /* =====================================================
+       EDIT YOUR CONTACT DETAILS HERE (only this block)
+       ===================================================== */
+    const CONFIG = {
+      phone:    "+92 300 0000000",          // shown on the site
+      whatsapp: "923000000000",             // country code + number, no + or spaces
+      email:    "info@richthinktech.com",
+      address:  "Your Office Address, City, Pakistan",
+      facebook: "https://www.facebook.com/RichThinkTechnology"
+    };
+    /* ===================================================== */
+
+    // fill contact details
+    document.querySelectorAll("[data-field]").forEach(el => el.textContent = CONFIG[el.dataset.field]);
+    document.querySelectorAll("[data-tel]").forEach(el => el.href = "tel:" + CONFIG.phone.replace(/\s/g, ""));
+    document.querySelectorAll("[data-mail]").forEach(el => el.href = "mailto:" + CONFIG.email);
+    document.querySelectorAll("[data-fb]").forEach(el => el.href = CONFIG.facebook);
+    const waBase = "https://wa.me/" + CONFIG.whatsapp;
+    document.querySelectorAll("[data-wa]").forEach(el => {
+      el.href = waBase + "?text=" + encodeURIComponent("Hi Rich Think Technologies, I'd like to discuss a project.");
+      el.target = "_blank"; el.rel = "noopener";
+    });
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // contact form -> WhatsApp message
+    document.getElementById("contactForm").addEventListener("submit", e => {
+      e.preventDefault();
+      const v = id => document.getElementById(id).value.trim();
+      const text = `Hello Rich Think Technologies!\n\nName: ${v("name")}\nPhone: ${v("phone")}\nService: ${v("service")}\n\n${v("msg")}`;
+      window.open(waBase + "?text=" + encodeURIComponent(text), "_blank");
+    });
+
+    // sticky nav style
+    const nav = document.getElementById("nav");
+    const onScroll = () => nav.classList.toggle("scrolled", window.scrollY > 20);
+    window.addEventListener("scroll", onScroll); onScroll();
+
+    // mobile menu
+    document.getElementById("menuToggle").addEventListener("click", () => nav.classList.toggle("open"));
+    document.querySelectorAll("#navLinks a").forEach(a => a.addEventListener("click", () => nav.classList.remove("open")));
+
+    // reveal on scroll + counters
+    const animateCount = el => {
+      const target = +el.dataset.count, suffix = el.dataset.suffix || "+";
+      const start = performance.now(), dur = 1600;
+      const tick = now => {
+        const p = Math.min((now - start) / dur, 1);
+        el.textContent = Math.floor(target * (1 - Math.pow(1 - p, 3))) + (p === 1 ? suffix : "");
+        if (p < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    };
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(en => {
+        if (!en.isIntersecting) return;
+        en.target.classList.add("in");
+        const c = en.target.querySelector("[data-count]");
+        if (c) animateCount(c);
+        io.unobserve(en.target);
+      });
+    }, { threshold: 0.15 });
+    document.querySelectorAll(".reveal").forEach((el, i) => {
+      el.style.transitionDelay = (i % 3) * 90 + "ms";
+      io.observe(el);
+    });
+
+    // spotlight effect on service cards
+    document.querySelectorAll(".service").forEach(card => {
+      card.addEventListener("mousemove", e => {
+        const r = card.getBoundingClientRect();
+        card.style.setProperty("--mx", (e.clientX - r.left) + "px");
+        card.style.setProperty("--my", (e.clientY - r.top) + "px");
+      });
+    });
+  </script>
+</body>
+</html>
